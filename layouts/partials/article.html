@@ -1,3 +1,30 @@
+<div class="download-epub-btn"><span class="fas fa-download fa-lg"></span> EPUB</div>
+<script>
+	/*
+		The following code is used to send some info
+		retrieved from Hugo into the javascript code,
+		allowing the generator to use it
+
+		Note that the button above and this script is placed outside
+		of the <article> tag on purpose, so that it's not
+		included in the generated epub file, because the
+		epub generator will extract the html from in the article tag.
+	*/
+	document.addEventListener("DOMContentLoaded", function(event) { 
+		var author = document.getElementsByName("author");
+		if (author && author.length > 0) {
+			author = author[0].getAttribute("content");
+		}
+
+		setEPUBInfo({
+    		baseUrl: '{{ relURL "/" }}',
+    		title: "The Deathworlders " + '{{ .Title }}',
+    		date: '{{ .Date.Format "2006-01-02T15:04:05Z" | safeHTML }}',
+    		author: author // couldn't find any easy way to get the author so I did this
+    	});
+	});
+</script>
+
 <article>
 
     <h1>{{ .Title }}</h1>

@@ -373,7 +373,7 @@ ul.pagination li {
   padding: 0 1em;
 }
 
-/* handle color inverting */
+/* color inverting */
 #social-media li #invert-btn {
   box-shadow:none;
   filter:invert(66%);
@@ -386,13 +386,13 @@ body.inverted #social-media li #invert-btn {
   filter:invert(40%);
 }
 
-body.inverted .fab {
-  filter:invert(100%);
-}
-
 body.inverted {
   color:#FFF !important; /* white */
   background-color:#222 !important; /* very nearly black */
+}
+
+body.inverted a {
+  color:#DDD !important; /* very light gray */
 }
 
 body.inverted h1,
@@ -403,4 +403,20 @@ body.inverted h4,
 body.inverted h5,
 body.inverted h6 {
   color:#d09242 !important; /* orange-ish */
+}
+
+/* epub download button */
+.download-epub-btn {
+  padding:4px 8px 4px 8px;
+  border:1px #cecece solid;
+  border-radius:4px;
+  display:inline-block;
+  cursor:pointer;
+  float:right;
+  margin-top:24px;
+  margin-right:24px;
+}
+
+.download-epub-btn:hover {
+  background-color:#ccc;
 }
