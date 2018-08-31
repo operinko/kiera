@@ -372,3 +372,35 @@ ul.pagination {
 ul.pagination li {
   padding: 0 1em;
 }
+
+/* handle color inverting */
+#social-media li #invert-btn {
+  box-shadow:none;
+  filter:invert(66%);
+  cursor:pointer;
+  width:auto;
+  margin-top:-2px; /* needs a small alignment to line up properly */
+}
+
+body.inverted #social-media li #invert-btn {
+  filter:invert(40%);
+}
+
+body.inverted .fab {
+  filter:invert(100%);
+}
+
+body.inverted {
+  color:#FFF !important; /* white */
+  background-color:#222 !important; /* very nearly black */
+}
+
+body.inverted h1,
+body.inverted h1 a,
+body.inverted h2, 
+body.inverted h3, 
+body.inverted h4, 
+body.inverted h5,
+body.inverted h6 {
+  color:#d09242 !important; /* orange-ish */
+}
