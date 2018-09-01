@@ -170,15 +170,8 @@
 		return num;
 	}
 
-	// setEPUBInfo - Function to transfer data from Hugo into JavaScript
-	var epub_info = {};
-	function setEPUBInfo(info) {
-		epub_info = info;
-	}
-	// Make this function globally accessible
-	window.setEPUBInfo = setEPUBInfo;
-
 	// downloadEPUB - Does all the work
+	var epub_info = {};
 	function downloadEPUB( cover_image, cover_filename ) {
 		try {
 			var baseUrl = epub_info.baseUrl;
@@ -315,6 +308,30 @@
 		var image_select = document.getElementById( "download-epub-file" );
 		var images = document.getElementsByClassName( "download-epub-cover-img" );
 		var skip_btn = document.getElementsByClassName( "download-epub-no-cover-btn" )[0];
+
+		// setEPUBInfo - Function to transfer data from Hugo into JavaScript
+		function setEPUBInfo(info) {
+			epub_info = info;
+
+			// Try to automatically load the author's cover image (see if it exists)
+			var authors_cover_image = images[2];
+
+			var filename = epub_info.url.substr(0,epub_info.url.length-1); // trim the "/" off the end
+			filename = filename.split("/").pop(); // get the last bit
+			filename = epub_info.baseUrl + "images/" + filename + ".jpg"; // add jpg to the end
+
+			authors_cover_image.addEventListener( "error", function() {
+				// The image wasn't found :(
+				// Hide this img and make the other images a bit wider
+				authors_cover_image.classList.add( "hidden" );
+				for(var i=0;i<images.length-1;i++) {
+					images[i].classList.add( "wider" );
+				}
+			});
+			authors_cover_image.src = filename; // set the src
+		}
+		// Make this function globally accessible
+		window.setEPUBInfo = setEPUBInfo;
 
 		// Cancel button (hide popup)
 		function closePopup() {

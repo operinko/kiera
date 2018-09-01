@@ -442,7 +442,7 @@ body.inverted h6 {
 }
 
 .download-epub-cover-selector-popup img {
-  max-width:40%;
+  max-width:30%;
   vertical-align:middle;
   border:3px solid #888;
   border-radius:16px;
@@ -450,10 +450,15 @@ body.inverted h6 {
   cursor:pointer;
 }
 
+.download-epub-cover-selector-popup img.wider {
+  max-width:40%;
+}
+
 .download-epub-cover-selector-popup img:hover {
   border-color:#4bb138;
 }
 
-.download-epub-cover-selector-popup.hidden {
+.download-epub-cover-selector-popup.hidden,
+.download-epub-cover-selector-popup img.hidden  {
   display:none;
 }

@@ -7,6 +7,7 @@
 		<p>Or, you can pick one of these we've prepared for you:</p>
 		<img class="download-epub-cover-img" src="{{ relURL "/" }}images/regaari.jpg" title="Art by spipes.tumblr.com">
 		<img class="download-epub-cover-img" src="{{ relURL "/" }}images/vemik.jpg" title="Art by spipes.tumblr.com">
+		<img class="download-epub-cover-img" src="#">
 		<br><br>
 		<div class="download-epub-cancel-btn epub-btn"><span class="fas fa-times fa-lg"></span> Cancel</div>
 		<div class="download-epub-no-cover-btn epub-btn"><span class="fas fa-eye-slash fa-lg"></span> Skip (no cover)</div>
@@ -23,7 +24,8 @@
 		included in the generated epub file, because the
 		epub generator will extract the html from the article tag.
 	*/
-	document.addEventListener("DOMContentLoaded", function(event) { 
+	document.addEventListener("DOMContentLoaded", function(event) {
+		// couldn't find any easy way to get the author so I did this
 		var author = document.getElementsByName("author");
 		if (author && author.length > 0) {
 			author = author[0].getAttribute("content");
@@ -33,7 +35,8 @@
     		baseUrl: '{{ relURL "/" }}',
     		title: "The Deathworlders " + '{{ .Title }}',
     		date: '{{ .Date.Format "2006-01-02T15:04:05Z" | safeHTML }}',
-    		author: author // couldn't find any easy way to get the author so I did this
+    		author: author,
+    		url: "{{ .URL }}"
     	});
 	});
 </script>
