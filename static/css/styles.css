@@ -406,17 +406,54 @@ body.inverted h6 {
 }
 
 /* epub download button */
-.download-epub-btn {
+.epub-btn {
   padding:4px 8px 4px 8px;
   border:1px #cecece solid;
   border-radius:4px;
   display:inline-block;
   cursor:pointer;
+}
+
+.epub-btn:hover {
+  background-color:#ccc;
+}
+
+.download-epub-btn {
   float:right;
   margin-top:24px;
   margin-right:24px;
 }
 
-.download-epub-btn:hover {
-  background-color:#ccc;
+/* epub download cover image popup */
+.download-epub-cover-selector-popup {
+  display:block;
+  width:90%;
+  max-width:600px;
+
+  padding:32px;
+
+  position:absolute;
+  top:32px;
+  left:50%;
+  transform:translateX(-50%);
+  background-color:white;
+  box-shadow:0 3px 3px #bbbbbb;
+  border:1px solid #cecece;
+}
+
+.download-epub-cover-selector-popup img {
+  max-width:40%;
+  vertical-align:middle;
+  border:3px solid #888;
+  border-radius:16px;
+  box-shadow:none;
+  cursor:pointer;
+}
+
+.download-epub-cover-selector-popup img:hover {
+  border-color:#4bb138;
+}
+
+.download-epub-cover-selector-popup.hidden {
+  display:none;
 }
