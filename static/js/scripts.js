@@ -118,11 +118,17 @@
 
 		// Add the cover image to the manifest
 		if (cover_filetype != "") {
-			opf.push( "<item id=\"cover." + cover_filetype + "\" href=\"cover." + cover_filetype + "\" media-type=\"image/" + cover_filetype + "\" properties=\"cover-image\" />" );
+			opf.push( "<item id=\"cover-image\" href=\"cover." + cover_filetype + "\" media-type=\"image/" + cover_filetype + "\" properties=\"cover-image\" />" );
+			opf.push( "<item id=\"cover\" href=\"cover.xhtml\" media-type=\"application/xhtml+xml\" />" );
 		}
 
 		opf.push("</manifest>");
 		opf.push("<spine>");
+
+		// Add the cover image to the spine
+		if (cover_filetype != "") {
+			opf.push( "<itemref idref=\"cover\" linear=\"no\" />" );
+		}
 
 		// Add the files to the spine
 		for(var i=0;i<files.length;i++) {
@@ -151,14 +157,13 @@
 			"<html xmlns=\"http://www.w3.org/1999/xhtml\"" + nav + ">",
 			"<head><title>Deathworlders.com</title>",
 			"<meta charset=\"utf-8\" />",
-			"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />",
 			"<link rel=\"stylesheet\" type=\"text/css\" href=\"css/css.css\" />",
 			"</head>",
 
 			// set the text
-			"<body><div id=\"container\"><main><article>",
+			"<body><article>",
 			content,
-			"</article></main></div></body>",
+			"</article></body>",
 			"</html>"
 		]).join("\n");
 	}
@@ -193,6 +198,9 @@
 				// so we replace it with <br/>
 				text = text.replace(/<br>/g,"<br/>");
 
+				var texts = [];
+				var ending = "";
+
 				// First find the end of the chapter
 				var pt = /(<hr>[ \n]*?<hr>)/g
 				var ending = pt.exec(text);
@@ -213,7 +221,7 @@
 				}
 				
 				// Now split the text on each <hr>
-				texts = text.split("<hr>");
+				var texts = text.split("<hr>");
 				
 				// Insert the ending at the end of the texts list
 				if (ending != "") {
@@ -253,6 +261,11 @@
 						if (cover_filetype == "jpg") {cover_filetype = "jpeg";}
 
 						content.file( "cover." + cover_filetype, cover_image );
+						content.file( "cover.xhtml", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+														"<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:epub=\"http://www.idpf.org/2007/ops\">"+
+														"<head><title>Deathworlders.com</title>"+
+														"<meta charset=\"utf-8\"/></head>"+
+														"<body><img src=\"cover."+cover_filetype+"\"/></body></html>" );
 					}
 
 					content.file( "info.opf", 
