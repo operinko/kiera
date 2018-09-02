@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   font-family: "Roboto Slab", serif;
   color: #333333;
 }
@@ -373,7 +372,7 @@ ul.pagination li {
   padding: 0 1em;
 }
 
-/* handle color inverting */
+/* color inverting */
 #social-media li #invert-btn {
   box-shadow:none;
   filter:invert(66%);
@@ -386,13 +385,13 @@ body.inverted #social-media li #invert-btn {
   filter:invert(40%);
 }
 
-body.inverted .fab {
-  filter:invert(100%);
-}
-
 body.inverted {
   color:#FFF !important; /* white */
   background-color:#222 !important; /* very nearly black */
+}
+
+body.inverted a {
+  color:#DDD !important; /* very light gray */
 }
 
 body.inverted h1,
@@ -403,4 +402,62 @@ body.inverted h4,
 body.inverted h5,
 body.inverted h6 {
   color:#d09242 !important; /* orange-ish */
+}
+
+/* epub download button */
+.epub-btn {
+  padding:4px 8px 4px 8px;
+  border:1px #cecece solid;
+  border-radius:4px;
+  display:inline-block;
+  cursor:pointer;
+}
+
+.epub-btn:hover {
+  background-color:#ccc;
+}
+
+.download-epub-btn {
+  float:right;
+  margin-top:24px;
+  margin-right:24px;
+}
+
+/* epub download cover image popup */
+.download-epub-cover-selector-popup {
+  display:block;
+  width:90%;
+  max-width:600px;
+
+  padding:32px;
+
+  position:absolute;
+  top:32px;
+  left:50%;
+  transform:translateX(-50%);
+  background-color:white;
+  box-shadow:0 3px 3px #bbbbbb;
+  border:1px solid #cecece;
+}
+
+.download-epub-cover-selector-popup img {
+  max-width:30%;
+  vertical-align:middle;
+  border:3px solid #888;
+  border-radius:16px;
+  box-shadow:none;
+  cursor:pointer;
+}
+
+.download-epub-cover-selector-popup img.wider {
+  max-width:40%;
+}
+
+.download-epub-cover-selector-popup img:hover {
+  border-color:#4bb138;
+}
+
+.download-epub-cover-selector-popup.hidden,
+.download-epub-cover-selector-popup img.hidden  {
+  display:none;
 }
