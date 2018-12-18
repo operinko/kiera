@@ -404,6 +404,12 @@ body.inverted h6 {
   color:#d09242 !important; /* orange-ish */
 }
 
+body.inverted blockquote {
+  background-color: #333; /* slightly brighter than background */
+  border-color: #555; /* slightly brighter than bg color */
+  box-shadow: 0 -1px 0 #555 inset;
+}
+
 /* epub download button */
 .epub-btn {
   padding:4px 8px 4px 8px;
