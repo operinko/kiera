@@ -1,0 +1,73 @@
+{{ define "main" }}
+
+<section id="list">
+
+    {{ $baseurl := .Site.BaseURL }}
+
+    {{ partial "epub_button" . }}
+    <script>
+        /*
+            The following code is used to send some info
+            retrieved from Hugo into the javascript code,
+            allowing the generator to use it
+        */
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var urls = [];
+            var titles = [];
+            {{ range .Data.Pages }} urls.push({{- .Permalink -}}); titles.push({{- .Title -}}); {{ end }}
+
+            // flip both arrays because they're added in the opposite order
+            var new_urls = [];
+            var new_titles = [];
+            for(var i=urls.length-1;i>=0;i--) {
+                new_urls.push(urls[i]);
+                new_titles.push(titles[i]);
+            }
+            urls = new_urls;
+            titles = new_titles;
+
+            setEPUBInfo({
+                baseUrl: '{{ relURL "/" }}',
+                story_title: '{{ .Title }}',
+                title: '{{ .Title }}',
+                date: '{{ .Date.Format "2006-01-02T15:04:05Z" | safeHTML }}',
+                author: '{{ .Params.Author | default .Site.Author.name }}',
+                story_image: '{{ .Title }}',
+                chapter_image: "", // no chapter-specific image is available from here
+                urls: urls,
+                titles: titles
+            });
+
+            // to this particular epub button, we add a little extra text
+            var epub_button_addon = document.getElementsByClassName("download-epub-btn")[0].getElementsByClassName("epub-btn-addon")[0];
+            epub_button_addon.innerHTML = " (Entire story)";
+        });
+    </script>
+
+    {{ if eq .Data.Singular "tag" }}
+        <h2>#{{ .Title | lower }}</h2>
+    {{ else }}
+        <h2>{{ .Title }}</h2>
+    {{ end }}
+
+    {{ .Content }}
+
+    {{ range (.Paginate (.Data.Pages.GroupByDate "2006")).PageGroups  }}
+
+    <h3>{{ .Key }}</h3>
+    <ul>
+        {{ range .Pages }}
+        <li>
+            <a href="{{ .Permalink }}">{{ if .Draft }}DRAFT: {{end}}{{ .Parent.Title }}<br/>{{ .Title | markdownify }}</a>
+            <time class="date-meta">{{ .Date.Format "Jan 2" }}</time>
+        </li>
+        {{ end }}
+    </ul>
+    
+    {{ end }}
+
+</section>
+
+{{ template "_internal/pagination.html" . }}
+
+{{ end }}
