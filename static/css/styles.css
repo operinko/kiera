@@ -219,13 +219,13 @@ a {
   box-shadow: 0 3px 3px #bbbbbb;
 }
 
-.full-image, figure.full img, img[src*="full"] {
+.full-image, figure.full img {
   width: 100%;
   box-shadow: 0 3px 3px #bbbbbb;
 }
 
 @supports (width: 100vw) {
-  .full-image, figure.full img, img[src*="full"] {
+  .full-image, figure.full img {
     width: 100vw;
     position: relative;
     left: 50%;
@@ -235,13 +235,13 @@ a {
   }
 }
 
-.mid-image, figure.mid img, img[src*="mid"] {
+.mid-image, figure.mid img {
   width: 100%;
   box-shadow: 0 3px 3px #bbbbbb;
 }
 
 @supports (width: 100vw) {
-  .mid-image, figure.mid img, img[src*="mid"] {
+  .mid-image, figure.mid img {
     width: 800px;
     position: relative;
     left: 50%;
@@ -250,7 +250,7 @@ a {
     margin-right: -400px;
   }
   @media only screen and (max-width: 800px) {
-    .mid-image, figure.mid img, img[src*="mid"] {
+    .mid-image, figure.mid img {
       width: 100%;
       left: 0;
       right: 0;
@@ -259,7 +259,7 @@ a {
   }
 }
 
-.float-image, figure.float img, img[src*="float"] {
+.float-image, figure.float img {
   width: 300px;
   float: left;
   margin: 0 1em 1em -3em;
@@ -267,14 +267,14 @@ a {
 }
 
 @media only screen and (max-width: 800px) {
-  .float-image, figure.float img, img[src*="float"] {
+  .float-image, figure.float img {
     float: none;
     margin: 0;
     width: 100%;
   }
 }
 
-.float-image-right, figure.float-right img, img[src*="float-right"] {
+.float-image-right, figure.float-right img {
   width: 300px;
   float: right;
   margin: 0 -3em 1em 1em;
@@ -282,7 +282,7 @@ a {
 }
 
 @media only screen and (max-width: 800px) {
-  .float-image-right, figure.float-right img, img[src*="float-right"] {
+  .float-image-right, figure.float-right img {
     float: none;
     margin: 0;
     width: 100%;
@@ -381,6 +381,8 @@ ul.pagination li {
   margin-top:-2px; /* needs a small alignment to line up properly */
 }
 
+/* ----------- inverted */
+
 body.inverted #social-media li #invert-btn {
   filter:invert(40%);
 }
@@ -409,6 +411,15 @@ body.inverted blockquote {
   border-color: #555; /* slightly brighter than bg color */
   box-shadow: 0 -1px 0 #555 inset;
 }
+body.inverted .download-epub-cover-selector-popup {
+  background-color:#222 !important; /* very nearly black */
+  color:#FFF;
+}
+body.inverted .download-epub-cover-selector-popup .download-progress-label {
+  background-color:#222;
+}
+
+/* ----------- epub button */
 
 /* epub download button */
 .epub-btn {
@@ -419,12 +430,25 @@ body.inverted blockquote {
   cursor:pointer;
 }
 
+.epub-btn .epub-btn-text {
+  vertical-align:middle;
+}
+.epub-btn .epub-btn-addon {
+  vertical-align:middle;
+  font-size:12px;
+  line-height:1;
+}
+
 .epub-btn:hover {
   background-color:#ccc;
 }
 
 .download-epub-btn {
   float:right;
+  margin-top:0px;
+  margin-right:0px;
+}
+.download-epub-btn.add-margin {
   margin-top:24px;
   margin-right:24px;
 }
@@ -435,8 +459,6 @@ body.inverted blockquote {
   width:90%;
   max-width:600px;
 
-  padding:32px;
-
   position:absolute;
   top:32px;
   left:50%;
@@ -446,24 +468,93 @@ body.inverted blockquote {
   border:1px solid #cecece;
 }
 
-.download-epub-cover-selector-popup img {
-  max-width:30%;
+/* image */
+.download-epub-cover-selector-popup img,
+.download-epub-cover-selector-popup canvas {
+  max-width:40%;
+  max-height:200px;
   vertical-align:middle;
   border:3px solid #888;
   border-radius:16px;
   box-shadow:none;
   cursor:pointer;
+  width:auto;
+  height:auto;
 }
 
-.download-epub-cover-selector-popup img.wider {
-  max-width:40%;
+.download-epub-cover-selector-popup img.wider,
+.download-epub-cover-selector-popup canvas.wider {
+  max-width:50%;
+  max-height:325px;
+}
+.download-epub-cover-selector-popup img.widest,
+.download-epub-cover-selector-popup canvas.widest {
+  max-width:65%;
+  max-height:380px;
 }
 
 .download-epub-cover-selector-popup img:hover {
   border-color:#4bb138;
 }
 
-.download-epub-cover-selector-popup.hidden,
-.download-epub-cover-selector-popup img.hidden  {
+.download-epub-cover-selector-popup *.hidden,
+.download-epub-cover-selector-popup.hidden {
   display:none;
+}
+
+/* progress status */
+.download-epub-cover-selector-popup .download-progress {
+  position:absolute;
+  text-align:center;
+  width:100%;
+  height:100%;
+  z-index:100;
+}
+
+.download-epub-cover-selector-popup .download-other {
+  padding:32px;
+}
+
+.download-epub-cover-selector-popup .download-other.blur {
+  filter:blur(5px);
+}
+
+.download-epub-cover-selector-popup .vertical-align {
+  height:100%;
+  vertical-align:middle;
+  display:inline-block;
+}
+.download-epub-cover-selector-popup .download-progress-label {
+  box-shadow:0px 0px 100px 150px rgba(0,0,0,0.2);
+  vertical-align:middle;
+  font-weight:bold;
+  background-color:white;
+  border:1px solid #cecece;
+  padding:8px;
+  z-index:200;
+}
+
+/* cover image options */
+.download-epub-cover-selector-popup .size-info {
+  display:inline-box;
+  padding:8px;
+  border:1px solid #cecece;
+  font-size:12px;
+  line-height:1;
+  margin-top:8px;
+  margin-bottom:4px;
+}
+.download-epub-cover-selector-popup .add-titles {
+  display:inline-box;
+  padding:8px;
+  border:1px solid #cecece;
+  font-size:12px;
+  line-height:1;
+  margin-top:8px;
+  margin-bottom:4px;
+}
+.download-epub-cover-selector-popup .size-info label,
+.download-epub-cover-selector-popup .add-titles label {
+  font-size:18px;
+  line-height:1.2;
 }

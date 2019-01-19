@@ -1,0 +1,73 @@
+<style>
+	/* 
+		these are created here and not in the css file for two reasons:
+			1. they're only used in the epub generator and
+			2. we don't want to include them inside the generated epub
+	*/
+	@font-face {
+	    font-family: 'AccidentalPresidency';
+	    src: url('{{ relURL "/" }}fonts/accid___.ttf');
+	}
+	@font-face {
+	    font-family: 'TimeBurner';
+	    src: url('{{ relURL "/" }}fonts/timeburnernormal.ttf');
+	}
+
+	@font-face {
+	    font-family: 'Trench';
+	    src: url('{{ relURL "/" }}fonts/trench100free.otf');
+	}
+</style>
+<div class="download-epub-btn epub-btn"><span class='epub-btn-text'><span class="fas fa-download fa-lg"></span> EPUB</span><span class='epub-btn-addon hidden'></span></div>
+<div class="download-epub-cover-selector-popup hidden">
+	<center>
+		<div class="download-progress hidden">
+			<span class="vertical-align"></span>
+			<span class="download-progress-label">Downloading... (0%)</span>
+		</div>
+		<div class="download-other">
+			<div class="select-cover">
+				<strong>Add a cover image</strong><br>
+				<small>Or else your epub cover will be all gray and boring, and we don't want that!</small>
+				<p><input type="file" id="download-epub-file"></p>
+				<p>Or, you can pick one of these we've prepared for you:</p>
+				<div class="story-specific-images">
+					<small><em>Story-specific image(s)</em></small><br>
+					<img class="download-epub-cover-img" src="#">
+					<img class="download-epub-cover-img" src="#">
+					<hr>
+				</div>
+				<div class="other-images">
+					<small><em>Other images (Art by spipes.tumblr.com)</em></small><br>
+					<img class="download-epub-cover-img" src="{{ relURL "/" }}images/regaari.jpg">
+					<img class="download-epub-cover-img" src="{{ relURL "/" }}images/vemik.jpg">
+				</div>
+				<br><br>
+				<div class="download-epub-cancel-btn epub-btn"><span class="fas fa-times fa-lg"></span> Cancel</div>
+				<div class="download-epub-no-cover-btn epub-btn"><span class="fas fa-eye-slash fa-lg"></span> Skip (no cover)</div>
+			</div>
+			<div class="selected-cover hidden">
+				<p>You have selected the following image:</p>
+				<canvas class="download-epub-cover-img widest" id="selected-cover-canvas"></canvas>
+				<div class="size-info hidden">
+					<p>
+						This image is <span class="download-epub-reduce-size-info"></span>, which is very large.
+						The image can safely be downscaled to reduce file size, without any noticeable changes on most screens.
+					</p>
+					<input type="radio" id="download-epub-reduce-size-neither" name="reduce-size-radio">
+					<label for="download-epub-reduce-size-neither"><small>Use original image</small></label><br>
+					<input type="radio" id="download-epub-reduce-size-hd" name="reduce-size-radio" checked>
+					<label for="download-epub-reduce-size-hd"><small>Optimize for smartphones</small></label><br>
+					<input type="radio" id="download-epub-reduce-size-sd" name="reduce-size-radio">
+					<label for="download-epub-reduce-size-sd"><small>Optimize for eReaders</small></label>
+				</div>
+				<div class="add-titles">
+					<input type="checkbox" id="download-epub-add-label">
+					<label for="download-epub-add-label"><small>Add titles/subtitles</small></label>
+				</div>
+				<div class="download-epub-cancel-btn epub-btn"><span class="fas fa-times fa-lg"></span> Cancel</div>
+				<div class="download-epub-ok-btn epub-btn"><span class="fas fa-check fa-lg"></span> Download</div>
+			</div>
+		</div>
+	</center>
+</div>
