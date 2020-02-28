@@ -419,6 +419,10 @@ body.inverted .download-epub-cover-selector-popup .download-progress-label {
   background-color:#222;
 }
 
+body.inverted #container main article pre {
+  background-color: #808080; 
+}
+
 /* ----------- epub button */
 
 /* epub download button */
